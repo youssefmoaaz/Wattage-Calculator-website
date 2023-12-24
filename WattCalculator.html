@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="description" content="This WebSite is designed to help you choose the appropriate power supply for your Pc Build and determine its approximately watt capacity based on your choices of parts.">
+        <title>Wattage Calculator</title>
+        <link rel="stylesheet" href="C:\Users\youss\Desktop\style.css"/>
+    </head>
+    <body>
+        <div class="header">
+            <h1>Pc Wattage Calculator</h1>
+            <input type="submit" name="Contact Us" value="Contact Us">
+            <br>
+
+            <img src="D:\BIS\website\222.jpg" alt="WattCalculatorCoverPic" width="1890">
+
+        </div>
+
+        <div class="calculator">
+            <p>This WebSite is designed to help you choose the appropriate power supply for your Pc Build and determine its approximately watt capacity based on your choices of parts.</p>
+            <br>
+            
+            <h3>Choose your components:</h3>
+
+            <img src="D:\BIS\website\motherboard.png" alt="motherboardpic" width="100">
+            <label for="motherboard">MotherBoard</label>
+                <select name="motherboard" id="motherboard">
+                    <option value="">Select your MotherBoard</option>
+                    <option value="Intel B660" data-wattage="120">Intel B660</option>
+                    <option value="Intel B760" data-wattage="150">Intel B760</option>
+                    <option value="Intel h610" data-wattage="100">Intel h610</option>
+                </select>
+            <br>
+
+            <img src="D:\BIS\website\cpu.png" alt="cpupic" width="100">
+            <label for="cpu">Processor</label>
+                <select name="cpu" id="cpu">
+                    <option value="">Select your CPU</option>
+                    <option value="i5 12400f" data-wattage="90">i5 12400f</option>
+                    <option value="i7 13700k" data-wattage="230">i7 13700k</option>
+                    <option value="i9 14900" data-wattage="350">i9 14900</option>
+                </select>
+            <br>
+
+            <img src="D:\BIS\website\video-card.png" alt="gpupic" width="100">
+            <label for="gpu">Graphics Card</label>
+                <select name="gpu" id="gpu">
+                    <option value="">Select your GPU</option>
+                    <option value="RTX 3060" data-wattage="180">RTX 3060</option>
+                    <option value="RTX 2080ti" data-wattage="200">RTX 2080ti</option>
+                    <option value="RTX 4090" data-wattage="600">RTX 4090</option>
+                </select>
+            <br>
+
+            <img src="D:\BIS\website\ram-memory.png" alt="rampic" width="100">
+            <label for="ram">RAM</label>
+                <select name="ram" id="ram">
+                    <option value="">Select your RAM</option>
+                    <option value="2x8 ddr4" data-wattage="40">2x8 ddr4</option>
+                    <option value="2x16 ddr4" data-wattage="80">2x16 ddr4</option>
+                    <option value="2x12 ddr5" data-wattage="50">2x12 ddr5</option>
+                </select>
+            <br>
+
+            <img src="D:\BIS\website\ssd.png" alt="storgepic" width="100">
+            <label for="storge">Storge</label>
+                <select name="storge" id="storge">
+                    <option value="">Select your Storge</option>
+                    <option value="1tb Hdd" data-wattage="50">1tb Hdd</option>
+                    <option value="4tb Hdd" data-wattage="70">4tb Hdd</option>
+                    <option value="8tb Hdd" data-wattage="90">8tb Hdd</option>
+                </select>
+            <br>
+
+            <button type="button" name="Calculate" value="Calculate" onclick="calculateWattage()">Calculate</button> Your recomended PSU wattage = <span id="result">0</span> Watt
+
+        </div>
+
+        <div class="contact us">
+            <form name="contact us" action="post.php" onsubmit="return validateForm()" method="post">
+                <label for="">Name</label>
+                <input type="text" name="name" id="name" placeholder="Type your name" required>
+                <br>
+
+                <label for="">Email</label>
+                <input type="text" name="email" id="email" placeholder="Type your email" required>
+                <br>
+
+                <label for="">Phone</label>
+                <input type="tel" name="phone" id="phone" placeholder="Type your phone numper" maxlength="12" required>
+                <br>
+
+                <label for="">Question</label>
+                <textarea type="text" name="question" id="question" placeholder="Type your Question" required></textarea>
+
+                <input type="submit" name="send" value="Send">
+            </form>
+        </div>
+
+        <script>
+
+            function calculateWattage()
+            {
+                var motherboardwattage = getWattage("motherboard");
+                var cpuwattage = getWattage("cpu");
+                var gpuwattage = getWattage("gpu");
+                var ramwattage = getWattage("ram");
+                var storgewattage = getWattage("storge");
+
+
+                var totalwattage = motherboardwattage + cpuwattage + gpuwattage + ramwattage + storgewattage
+
+                var roundwattage = Math.ceil(totalwattage / 50) * 50;
+
+                document.getElementById("result").textContent = roundwattage;
+            }
+
+            function getWattage(componentId)
+            {
+                var componentselect = document.getElementById(componentId);
+                var selectedOption = componentselect.options[componentselect.selectedIndex];
+                var wattage = parseInt(selectedOption.getAttribute("data-wattage")) || 0;
+
+                return wattage;
+            }
+
+            function validateForm()
+            {
+                var name = document.getElementById('name').value;
+                var email = document.getElementById('email').value;
+                var phone = document.getElementById('phone').value;
+                var question = document.getElementById('question').value;
+
+                if (name === '' || email === '' || phone === '' || question === '')
+                {
+                    alert('Please fill in all fields.');
+                    return false;
+                }
+
+                return true;
+
+            }
+
+        </script>
+
+    </body>
+</html>
